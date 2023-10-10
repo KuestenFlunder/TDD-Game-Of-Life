@@ -24,20 +24,46 @@ class GameOfLifeTest {
     }
 
     @Test
+    public void DEAD_cell_with_1_neighbors_stays_DEAD() {
+        //act
+        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.DEAD,Arrays.asList(true,false,false,false,false,false,false,false));
+        assertEquals(GameOfLife.CellState.DEAD,state);
+    }
+
+    @Test
     public void DEAD_cell_with_0_neighbors_stays_DEAD() {
         //act
         GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.DEAD,Arrays.asList(false,false,false,false,false,false,false,false));
         assertEquals(GameOfLife.CellState.DEAD,state);
     }
 
+    //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
     @Test
-    public void anser_DEAD_if_array_contains_1_neighbors() {
+    public void DEAD_cell_with_3_neighbors_becomes_ALIVE() {
         //act
-        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.DEAD,Arrays.asList(true,false,false,false,false,false,false,false));
-        assertEquals(GameOfLife.CellState.DEAD,state);
+        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.DEAD,Arrays.asList(true,true,true,false,false,false,false,false));
+        assertEquals(GameOfLife.CellState.ALIVE,state);
     }
 
+    @Test
+    public void ALIVE_cell_with_2_neighbors_stays_ALIVE() {
+        //act
+        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.ALIVE,Arrays.asList(true,true,false,false,false,false,false,false));
+        assertEquals(GameOfLife.CellState.ALIVE,state);
+    }
 
+    @Test
+    public void ALIVE_cell_with_3_neighbors_stays_ALIVE() {
+        //act
+        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.ALIVE,Arrays.asList(true,true,true,false,false,false,false,false));
+        assertEquals(GameOfLife.CellState.ALIVE,state);
+    }
 
-
+    //Any live cell with more than three live neighbours dies, as if by overpopulation.
+    @Test
+    public void ALIVE_cell_with_more_than_3_neighbors_becomes_dead() {
+        //act
+        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.ALIVE,Arrays.asList(true,true,true,true,false,false,false,false));
+        assertEquals(GameOfLife.CellState.DEAD,state);
+    }
 }
