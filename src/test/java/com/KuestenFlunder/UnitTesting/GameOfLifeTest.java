@@ -1,37 +1,42 @@
 package com.KuestenFlunder.UnitTesting;
 
-import org.apache.el.parser.BooleanNode;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.Arrays;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class GameOfLifeTest {
+    GameOfLife gameOfLife;
 
-
-    @Test
-    public void answer_true_if_array_length_8 (){
+    @BeforeEach
+    public void setUp() {
         //arrange
-        GameOfLife gameOfLife = new GameOfLife();
-
-        //act
-        GameOfLife.CellState state = gameOfLife.checkState(Arrays.asList(true,true,false,false,true,false,false));
-        //assert
-        assertEquals(GameOfLife.CellState.LIST_CORRECT,state);
+        gameOfLife = new GameOfLife();
     }
 
     @Test
-    public void answer_false_if_array_length_notEqual8 (){
-        //arrange
-        GameOfLife gameOfLife = new GameOfLife();
-
-        //act
-        GameOfLife.CellState state = gameOfLife.checkState(Arrays.asList(false,false,true,false,false));
-        //assert
-        assertEquals(GameOfLife.CellState.LIST_INCORRECT,state);
+    public void answer_LIST_INCORRECT_if_array_length_notEqual8() {
+        assertThrows(IllegalArgumentException.class,() -> gameOfLife.checkState(GameOfLife.CellState.DEAD,Arrays.asList(false, false, true, false, false)));
     }
+
+    @Test
+    public void DEAD_cell_with_0_neighbors_stays_DEAD() {
+        //act
+        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.DEAD,Arrays.asList(false,false,false,false,false,false,false,false));
+        assertEquals(GameOfLife.CellState.DEAD,state);
+    }
+
+    @Test
+    public void anser_DEAD_if_array_contains_1_neighbors() {
+        //act
+        GameOfLife.CellState state = gameOfLife.checkState(GameOfLife.CellState.DEAD,Arrays.asList(true,false,false,false,false,false,false,false));
+        assertEquals(GameOfLife.CellState.DEAD,state);
+    }
+
 
 
 

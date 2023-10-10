@@ -3,19 +3,15 @@ package com.KuestenFlunder.UnitTesting;
 import java.util.List;
 
 public class GameOfLife {
-
-    public CellState checkState(List<Boolean> neighborsState) {
-        if (neighborsState.size() == 8)
-            return CellState.LIST_CORRECT;
-        return CellState.LIST_INCORRECT;
+    public CellState checkState(CellState actualState,List<Boolean> neighborsState) {
+        if (neighborsState.size() != 8)
+           throw new IllegalArgumentException("There should be 8 neighbours!");
+        return CellState.DEAD;
     }
 
-
     public enum CellState {
-        LIST_CORRECT,
-        LIST_INCORRECT,
-        BECOME_ALIVE,
-        SURVIVE,
+        BORN,
+        ALIVE,
         DEAD
     }
 
