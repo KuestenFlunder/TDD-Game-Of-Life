@@ -7,9 +7,9 @@ public class GameOfLife {
         return neighborsState.stream().filter(value -> value).count();
     }
 
-    public CellState checkState(CellState actualState, List<Boolean> neighborsState) {
-        validateNeighborsListLenghtIsEight(neighborsState);
-        long numberOfLivingNeighbors = countLivingNeighbors(neighborsState);
+    public CellState checkState(CellState actualState, List<Boolean> neighbors) {
+        validateNeighborsListLenghtIsEight(neighbors);
+        long numberOfLivingNeighbors = countLivingNeighbors(neighbors);
 
         return switch ((int) numberOfLivingNeighbors) {
             case 2 -> actualState;
@@ -23,8 +23,18 @@ public class GameOfLife {
     }
 
     public enum CellState {
-        ALIVE,
-        DEAD
+        ALIVE(true),
+        DEAD(false);
+
+        private final boolean value;
+
+        CellState(boolean value) {
+            this.value = value;
+        }
+
+        public boolean getValue() {
+            return value;
+        }
     }
 
 
