@@ -1,22 +1,23 @@
 package com.KuestenFlunder.UnitTesting;
 
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Field {
     public List<Cell> cellField = new ArrayList<>();
 
-  public Field(){}
+    public Field() {
+    }
     //expected Field orientation
     //P(0,0) P(1,0) P(2,0)
     //P(0,1) P(1,1) P(2,1)
     //P(0,2) P(1,2) P(2,2)
 
 
-    public Field(int xLenght, int yLegth){
-      setCellField(xLenght,yLegth);
+    public Field(int xLenght, int yLegth) {
+        setCellField(xLenght, yLegth);
         System.out.println();
     }
 
@@ -28,9 +29,17 @@ public class Field {
         }
     }
 
+    public Cell getCellByCoordinates(int x, int y) {
+        //? for better readability : deletion could be discussed
+        Cell searchedCell = new Cell(x,y);
 
-    public Cell getCellByPoint(int x, int y) {
-
-      return new Cell(x,y);
+        return cellField.stream()
+                .filter(cell -> cell.equals(searchedCell))
+                .findFirst()
+                .orElseThrow(
+                        () -> new NoSuchElementException(
+                                String.format("There is no Cell with the coordinates Point(%d,%d)", x, y)));
     }
+
+
 }

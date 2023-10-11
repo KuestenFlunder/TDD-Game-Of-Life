@@ -3,9 +3,10 @@ package com.KuestenFlunder.UnitTesting;
 
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FieldTest {
 
@@ -14,7 +15,7 @@ class FieldTest {
     public void set_x_side_to_size_one_playground() {
         Field field = new Field();
 
-        field.setCellField(1, 0);
+        field.setCellField(1, 1);
         int size = field.cellField.size();
         assertEquals(1, size);
     }
@@ -23,7 +24,7 @@ class FieldTest {
     public void set_x_side_to_size_5_playground() {
         Field field = new Field();
 
-        field.setCellField(5, 0);
+        field.setCellField(5, 1);
         int size = field.cellField.size();
         assertEquals(5, size);
     }
@@ -46,7 +47,7 @@ class FieldTest {
     public void get_upper_left_Cell_Point_0_0() {
         Field field = new Field(1, 1);
 
-        Cell upperLeftPoint = field.getCellByPoint(0, 0);
+        Cell upperLeftPoint = field.getCellByCoordinates(0, 0);
 
         assertEquals(new Cell(0,0), upperLeftPoint);
     }
@@ -55,9 +56,13 @@ class FieldTest {
     public void get_Cell_with_Point_2_2() {
         Field field = new Field(3, 3);
 
-        Cell askedCell = field.getCellByPoint(2,2);
+        assertEquals(new Cell(2,2),field.getCellByCoordinates(2,2));
+    }
 
-        assertEquals(new Cell(2,2),askedCell);
+    @Test
+    public void not_existing_Cell_thows_Exception(){
+        Field field = new Field(3,3);
+        assertThrows(NoSuchElementException.class,() -> field.getCellByCoordinates(4,4));
     }
 
 
