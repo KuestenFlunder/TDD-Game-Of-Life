@@ -1,7 +1,9 @@
 package com.KuestenFlunder.UnitTesting;
 
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
 
 import java.util.NoSuchElementException;
 
@@ -10,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FieldTest {
 
-
+@Nested
+@DisplayName("test playground creation")
+class PlaygroundCreation {
     @Test
     public void set_x_side_to_size_one_playground() {
         Field field = new Field();
@@ -42,28 +46,41 @@ class FieldTest {
     public void field_constructor_setField_of_20() {
         assertEquals(20, new Field(5, 4).cellField.size());
     }
+}
 
+@Nested
+@DisplayName("test getting a cell by its coordinates")
+class GetCellByCoordinatesTests {
     @Test
     public void get_upper_left_Cell_Point_0_0() {
         Field field = new Field(1, 1);
 
         Cell upperLeftPoint = field.getCellByCoordinates(0, 0);
 
-        assertEquals(new Cell(0,0), upperLeftPoint);
+        assertEquals(new Cell(0, 0), upperLeftPoint);
     }
 
     @Test
     public void get_Cell_with_Point_2_2() {
         Field field = new Field(3, 3);
 
-        assertEquals(new Cell(2,2),field.getCellByCoordinates(2,2));
+        assertEquals(new Cell(2, 2), field.getCellByCoordinates(2, 2));
     }
 
     @Test
-    public void not_existing_Cell_thows_Exception(){
-        Field field = new Field(3,3);
-        assertThrows(NoSuchElementException.class,() -> field.getCellByCoordinates(4,4));
+    public void not_existing_Cell_thows_Exception() {
+        Field field = new Field(3, 3);
+        assertThrows(NoSuchElementException.class, () -> field.getCellByCoordinates(4, 4));
     }
+}
 
+@Nested
+    @DisplayName("test getting the Cell neighbours")
+    class getNeighboursTests{
+
+
+    
+
+}
 
 }
