@@ -1,19 +1,22 @@
 package com.KuestenFlunder.UnitTesting;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class Cell {
-    private Point point;
+    private final Point point = new Point();
     private CellState cellState;
 
-    public Cell(Point point) {
-        this.point = point;
+    public Cell(int x, int y) {
+        this.point.x = x;
+        this.point.y = y;
         this.cellState = CellState.DEAD;
     }
 
-    public Cell(Point point, CellState cellState) {
-        this.point = point;
-        this.cellState = cellState;
+    public Cell(int x, int y,CellState cellState) {
+        this.point.x = x;
+        this.point.y = y;
+        this.cellState = CellState.DEAD;
     }
 
     public Point getPoint() {
@@ -26,5 +29,18 @@ public class Cell {
 
     public void setCellState(CellState cellState) {
         this.cellState = cellState;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return Objects.equals(point, cell.point);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(point);
     }
 }
