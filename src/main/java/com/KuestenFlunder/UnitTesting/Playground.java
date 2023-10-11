@@ -1,15 +1,14 @@
 package com.KuestenFlunder.UnitTesting;
 
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class Field {
+public class Playground {
     public List<Cell> cellField = new ArrayList<>();
 
-    public Field() {
+    public Playground() {
     }
     //expected Field orientation
     //P(0,0) P(1,0) P(2,0)
@@ -17,7 +16,7 @@ public class Field {
     //P(0,2) P(1,2) P(2,2)
 
 
-    public Field(int xLenght, int yLegth) {
+    public Playground(int xLenght, int yLegth) {
         setCellField(xLenght, yLegth);
         System.out.println();
     }
@@ -32,7 +31,7 @@ public class Field {
 
     public Cell getCellByCoordinates(int x, int y) {
         //? for better readability : deletion could be discussed
-        Cell searchedCell = new Cell(x,y);
+        Cell searchedCell = new Cell(x, y);
 
         return cellField.stream()
                 .filter(cell -> cell.equals(searchedCell))
@@ -44,10 +43,24 @@ public class Field {
 
 
     public List<Cell> findNeighbours(Cell cell) {
-    List<Cell> neighbours = new ArrayList<>();
-     int x = cell.getPoint().x;
-     int y = cell.getPoint().y;
-    neighbours.add(new Cell(x,y-1));
-     return neighbours;
+        List<Cell> neighbours = new ArrayList<>();
+        int x = cell.getPoint().x;
+        int y = cell.getPoint().y;
+
+        int[] xOffsets = { -1, 0, 1 };
+        int[] yOffsets = { -1, 0, 1 };
+
+        for (int xOffset : xOffsets) {
+            for (int yOffset : yOffsets) {
+                if (xOffset == 0 && yOffset == 0) {
+                    continue; // Skip the current cell
+                }
+                int newX = x + xOffset;
+                int newY = y + yOffset;
+                Cell neighborCell = getCellByCoordinates(newX, newY);
+                neighbours.add(neighborCell);
+            }
+        }
+        return neighbours;
     }
 }
