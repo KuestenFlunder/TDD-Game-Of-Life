@@ -2,7 +2,8 @@ package com.KuestenFlunder.UnitTesting;
 
 import java.util.List;
 
-public class GameOfLife {
+
+public class SparkOfLife {
 
 
     private static final int TOP_CONDITIONS = 3;
@@ -29,21 +30,6 @@ public class GameOfLife {
 
             default -> CellState.DEAD;
         };
-    }
-
-    public enum CellState {
-        ALIVE(true),
-        DEAD(false);
-
-        private final boolean value;
-
-        CellState(boolean value) {
-            this.value = value;
-        }
-
-        public boolean getValue() {
-            return value;
-        }
     }
 
 
