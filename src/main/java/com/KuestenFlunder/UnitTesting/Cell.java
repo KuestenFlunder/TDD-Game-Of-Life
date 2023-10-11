@@ -4,8 +4,13 @@ import java.awt.*;
 import java.util.Objects;
 
 public class Cell {
-    private final Point point = new Point();
+    private Point point = new Point();
     private CellState cellState;
+
+    public Cell(Point point) {
+        this.point = point;
+        this.cellState = CellState.DEAD;
+    }
 
     public Cell(int x, int y) {
         this.point.x = x;
@@ -13,7 +18,7 @@ public class Cell {
         this.cellState = CellState.DEAD;
     }
 
-    public Cell(int x, int y,CellState cellState) {
+    public Cell(int x, int y, CellState cellState) {
         this.point.x = x;
         this.point.y = y;
         this.cellState = CellState.DEAD;

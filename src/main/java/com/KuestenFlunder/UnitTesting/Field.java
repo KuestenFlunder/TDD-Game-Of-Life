@@ -1,6 +1,7 @@
 package com.KuestenFlunder.UnitTesting;
 
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -42,4 +43,11 @@ public class Field {
     }
 
 
+    public List<Cell> findNeighbours(Cell cell) {
+    List<Cell> neighbours = new ArrayList<>();
+     int x = cell.getPoint().x;
+     int y = cell.getPoint().y;
+    neighbours.add(new Cell(x,y-1));
+     return neighbours;
+    }
 }
