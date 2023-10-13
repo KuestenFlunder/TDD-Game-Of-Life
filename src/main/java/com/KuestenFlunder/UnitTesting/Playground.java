@@ -6,11 +6,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
-
 public class Playground {
     public List<Cell> cellField = new ArrayList<>();
-    SparkOfLife sparkOfLife = new SparkOfLife();
+
     private final int xLength;
     private final int yLength;
 

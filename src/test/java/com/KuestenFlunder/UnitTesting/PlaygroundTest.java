@@ -267,7 +267,7 @@ class PlaygroundTest {
             Cell nextCorrectCell = playground.getNextCell(actualCell);
 
             assertNull(nextCorrectCell);
-        };
+        }
 
     }
 

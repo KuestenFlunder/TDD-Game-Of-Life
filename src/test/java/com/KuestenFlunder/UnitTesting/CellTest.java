@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
+import static com.KuestenFlunder.UnitTesting.CellState.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
@@ -21,22 +22,22 @@ class CellTest {
         Point point = cell.getPoint();
         assertEquals(1, point.x);
         assertEquals(1, point.y);
-        assertEquals(CellState.DEAD, cell.getCellState());
+        assertEquals(DEAD, cell.getCellState());
     }
 
     @Test
     void testConstructorWithThreeParameters() {
-        Cell cellWithState = new Cell(2, 2, CellState.ALIVE);
+        Cell cellWithState = new Cell(2, 2, ALIVE);
         Point point = cellWithState.getPoint();
         assertEquals(2, point.x);
         assertEquals(2, point.y);
-        assertEquals(CellState.DEAD, cellWithState.getCellState());  // As the state is always set to DEAD in the constructor
+        assertEquals(ALIVE, cellWithState.getCellState());  // As the state is always set to DEAD in the constructor
     }
 
     @Test
     void setAndGetCellState() {
-        cell.setCellState(CellState.ALIVE);
-        assertEquals(CellState.ALIVE, cell.getCellState());
+        cell.setCellState(ALIVE);
+        assertEquals(ALIVE, cell.getCellState());
     }
 
     @Test
