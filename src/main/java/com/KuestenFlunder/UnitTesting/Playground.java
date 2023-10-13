@@ -116,9 +116,4 @@ public class Playground {
         return Objects.hash(cellField, xLength, yLength);
     }
 
-    public Playground calculateNextRound(Cell acutalCell) {
-        Map<CellState, Long> neighboursstate = getNeighboursState(acutalCell);
-       // sparkOfLife.checkStateOfActualCell(acutalCell,getNeighboursState(acutalCell))
-        return  null;
-    }
 }

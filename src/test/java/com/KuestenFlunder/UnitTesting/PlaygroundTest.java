@@ -78,8 +78,9 @@ class PlaygroundTest {
 
         @Test
         public void cell_1_1_is_ALIVE() {
+            playground = new Playground(3, 3);
             playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
-            Cell actualCell = new Cell(1, 1);
+            Cell actualCell = playground.getCellByCoordinates(1,1);
             assertEquals(ALIVE, playground.getCellState(actualCell));
             assertEquals(DEAD, playground.getCellByCoordinates(2, 2).getCellState());
         }
@@ -233,55 +234,8 @@ class PlaygroundTest {
 
     }
 
-    @Nested
-    @DisplayName( "test the calculation of the next round")
-    class calculateNextRound{
-        Playground playground;
-
-        @BeforeEach
-        public void setUp() {
-            playground = new Playground(3, 3);
-        }
 
 
-        @Test
-        public void set_State_of_x1y1_to_ALIVE_while_3_ALIVE_neighbours(){
-            playground.getCellByCoordinates(0,0).setCellState(ALIVE);
-            playground.getCellByCoordinates(0,1).setCellState(ALIVE);
-            playground.getCellByCoordinates(0,2).setCellState(ALIVE);
 
-            Playground assertedPlayground = new Playground(3,3);
-            assertedPlayground.getCellByCoordinates(0,0).setCellState(ALIVE);
-            assertedPlayground.getCellByCoordinates(0,1).setCellState(ALIVE);
-            assertedPlayground.getCellByCoordinates(0,2).setCellState(ALIVE);
-            assertedPlayground.getCellByCoordinates(1,1).setCellState(ALIVE);
-
-            Playground resultingPlayground = playground.calculateNextRound(playground.getCellByCoordinates(1,1));
-
-            assertEquals(assertedPlayground,resultingPlayground);
-
-
-        }
-
-        @Test
-        public void set_State_of_x2y1_to_ALIVE_while_3_ALIVE_neighbours(){
-            playground.getCellByCoordinates(2,0).setCellState(ALIVE);
-            playground.getCellByCoordinates(1,1).setCellState(ALIVE);
-            playground.getCellByCoordinates(2,2).setCellState(ALIVE);
-
-            Playground assertedPlayground = new Playground(3,3);
-            assertedPlayground.getCellByCoordinates(2,0).setCellState(ALIVE);
-            assertedPlayground.getCellByCoordinates(1,1).setCellState(ALIVE);
-            assertedPlayground.getCellByCoordinates(2,2).setCellState(ALIVE);
-            assertedPlayground.getCellByCoordinates(2,1).setCellState(ALIVE);
-
-            Playground resultingPlayground = playground.calculateNextRound(playground.getCellByCoordinates(2,1));
-
-            assertEquals(assertedPlayground,resultingPlayground);
-
-
-        }
-
-    }
 
 }
