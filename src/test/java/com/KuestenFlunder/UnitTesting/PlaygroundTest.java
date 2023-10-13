@@ -80,28 +80,12 @@ class PlaygroundTest {
     class getNeighboursTests {
         Playground playground;
 
+
         @BeforeEach
         public void setUp() {
             playground = new Playground(3, 3);
         }
 
-        @Test
-        public void get_the_neighbour_above_from_Cell_1_1() {
-            List<Cell> foundNeighbour = playground.findNeighbours(new Cell(1, 1));
-
-            assertTrue(foundNeighbour.contains(new Cell(1, 0)));
-        }
-
-        @Test
-        public void find_rowOfNeighbours_above() {
-            List<Cell> upperRowOfNeighbours = playground.findNeighbours(new Cell(1, 1));
-
-            assertEquals(8, upperRowOfNeighbours.size());
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(1, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 0)));
-
-        }
 
         @Test
         public void find_all_neighbours() {
