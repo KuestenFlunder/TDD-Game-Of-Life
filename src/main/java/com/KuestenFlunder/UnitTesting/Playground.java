@@ -54,7 +54,18 @@ public class Playground {
                         () -> new NoSuchElementException(
                                 String.format("There is no Cell with the coordinates Point(%d,%d)", x, y)));
     }
+    public Cell getCellByObject(Cell searchedCell) {
 
+        int x = searchedCell.getPoint().x;
+        int y = searchedCell.getPoint().y;
+
+        return cellField.stream()
+                .filter(cell -> cell.equals(searchedCell))
+                .findFirst()
+                .orElseThrow(
+                        () -> new NoSuchElementException(
+                                String.format("There is no Cell with the coordinates Point(%d,%d)", x, y)));
+    }
     protected List<Cell> findNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
         int x = cell.getPoint().x;

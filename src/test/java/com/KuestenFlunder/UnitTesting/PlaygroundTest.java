@@ -61,6 +61,43 @@ class PlaygroundTest {
     }
 
     @Nested
+    @DisplayName("test getting a cell by its Cell object")
+    class GetCellByObjectTests {
+        Playground playground;
+
+        @BeforeEach
+        public void setUp() {
+            playground = new Playground(3, 3);
+        }
+
+        @Test
+        public void get_Cell_by_Object() {
+            Cell searchedCell = new Cell(2, 2);
+            Cell foundCell = playground.getCellByObject(searchedCell);
+
+            assertEquals(searchedCell, foundCell);
+        }
+
+        @Test
+        public void cell_not_present_throws_exception() {
+            Cell notPresentCell = new Cell(4, 4);
+
+            assertThrows(NoSuchElementException.class,
+                    () -> playground.getCellByObject(notPresentCell));
+        }
+
+        @Test
+        public void get_Cell_with_different_object_same_coordinates() {
+            Cell cell1 = new Cell(2, 2);
+            Cell cell2 = new Cell(2, 2); // Different object but same coordinates
+
+            Cell foundCell = playground.getCellByObject(cell2);
+
+            assertEquals(cell1, foundCell);
+        }
+    }
+
+    @Nested
     @DisplayName("test getting the state of a specific Cell")
     class GetStateOfSpecificCell {
         Playground playground;
