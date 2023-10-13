@@ -1,6 +1,9 @@
 package com.KuestenFlunder.UnitTesting;
 
 import java.util.List;
+import java.util.Map;
+
+import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
 
 
 public class SparkOfLife {
@@ -10,23 +13,15 @@ public class SparkOfLife {
     private static final int GOOD_CONDITIONS = 2;
 
 
-    private static long countLivingNeighbors(List<Boolean> neighborsState) {
-        return neighborsState.stream().filter(value -> value).count();
-    }
+    public CellState checkStateOfActualCell(CellState actualState, Map<CellState,Long> neighborsState) {
 
-    private static void validateNeighborsListLenghtIsEight(List<Boolean> neighborsState) {
-        if (neighborsState.size() != 8) throw new IllegalArgumentException("There should be 8 neighbours!");
-    }
-
-    public CellState checkStateOfActualCell(CellState actualState, List<Boolean> neighbors) {
-        validateNeighborsListLenghtIsEight(neighbors);
-        long numberOfLivingNeighbors = countLivingNeighbors(neighbors);
+        long numberOfLivingNeighbors = neighborsState.get(ALIVE);
 
         return switch ((int) numberOfLivingNeighbors) {
 
             case GOOD_CONDITIONS -> actualState;
             //dead cells become alive
-            case TOP_CONDITIONS -> CellState.ALIVE;
+            case TOP_CONDITIONS -> ALIVE;
 
             default -> CellState.DEAD;
         };

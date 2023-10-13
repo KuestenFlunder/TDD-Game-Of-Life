@@ -44,12 +44,12 @@ public class Cell {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cell cell = (Cell) o;
-        return Objects.equals(point, cell.point);
+        return Objects.equals(point, cell.point) && cellState == cell.cellState;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(point);
+        return Objects.hash(point, cellState);
     }
 
     @Override

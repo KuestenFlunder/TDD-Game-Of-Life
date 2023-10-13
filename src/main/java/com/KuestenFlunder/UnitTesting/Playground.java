@@ -1,37 +1,38 @@
 package com.KuestenFlunder.UnitTesting;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
 
 public class Playground {
     public List<Cell> cellField = new ArrayList<>();
-    SparkOfLife sparkOfLife;
-
-    public Playground() {
-    }
+    SparkOfLife sparkOfLife = new SparkOfLife();
+    private final int xLength;
+    private final int yLength;
 
     //expected Field orientation
     //P(0,2) P(1,2) P(2,2)
     //P(0,1) P(1,1) P(2,1)
     //P(0,0) P(1,0) P(2,0)
 
-    public Playground(int xLenght, int yLegth) {
-        setCellField(xLenght, yLegth);
+    public Playground(int xLenght, int yLength) {
+        this.xLength = xLenght;
+        this.yLength = yLength;
+        setCellField(xLenght, yLength);
         System.out.println();
     }
 
     public void setCellField(int lengthX, int lengthY) {
-        for (int i = 0; i < lengthX; i++) {
-            for (int j = 0; j < lengthY; j++) {
-                cellField.add(new Cell(i, j));
-            }
-        }
+        IntStream.range(0, lengthX)
+                .boxed()
+                .flatMap(x -> IntStream.range(0, lengthY).mapToObj(y -> new Cell(x, y)))
+                .forEach(cellField::add);
     }
+
 
     public Map<CellState, Long> getNeighboursState(Cell cell) {
 
@@ -77,11 +78,47 @@ public class Playground {
                 }
             }
         }
+        if (neighbours.size() > 8) {
+            throw new IllegalStateException("A cell cannot have more than 8 neighbors.");
+        }
         return neighbours;
     }
 
     public CellState getCellState(Cell actualCell) {
         Cell searchedCell = getCellByCoordinates(actualCell.getPoint().x, actualCell.getPoint().y);
         return searchedCell.getCellState();
+    }
+
+    public Cell getNextCell(Cell actualCell) {
+        int x = actualCell.getPoint().x;
+        int y = actualCell.getPoint().y;
+
+        if (x < xLength - 1) {
+            return getCellByCoordinates(x + 1, y);
+        } else if (y < yLength - 1) {
+            return getCellByCoordinates(0, y + 1);
+        }
+
+        return null;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Playground that = (Playground) o;
+        return xLength == that.xLength && yLength == that.yLength && Objects.equals(cellField, that.cellField);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cellField, xLength, yLength);
+    }
+
+    public Playground calculateNextRound(Cell acutalCell) {
+        Map<CellState, Long> neighboursstate = getNeighboursState(acutalCell);
+       // sparkOfLife.checkStateOfActualCell(acutalCell,getNeighboursState(acutalCell))
+        return  null;
     }
 }
