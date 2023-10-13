@@ -3,7 +3,10 @@ package com.KuestenFlunder.UnitTesting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Playground {
     SparkOfLife sparkOfLife;
@@ -15,8 +18,6 @@ public class Playground {
     //P(0,0) P(1,0) P(2,0)
     //P(0,1) P(1,1) P(2,1)
     //P(0,2) P(1,2) P(2,2)
-
-
     public Playground(int xLenght, int yLegth) {
         setCellField(xLenght, yLegth);
         System.out.println();
@@ -63,5 +64,20 @@ public class Playground {
             }
         }
         return neighbours;
+    }
+
+    public Map<Boolean,Long> getNeighboursState(Cell cell) {
+
+        return findNeighbours(cell)
+                .stream()
+                .map(neighbour-> neighbour.getCellState().getValue())
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()
+                ));
+
+
+
+
+//                    .map(neighbour -> neighbour.getCellState().getValue())
+//                    .toList();
     }
 }

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -118,6 +119,47 @@ class PlaygroundTest {
         }
 
 
+        @Test
+        public void all_neighbours_are_DEAD(){
+            Cell acutalCell = new Cell(1,1);
+            Map<Boolean,Long> neighboursState = playground.getNeighboursState(acutalCell);
+            assertEquals(8L,neighboursState.get(false));
+            assertNull(neighboursState.get(true));
+        }
+
+        @Test
+
+        public void three_neighbours_are_ALIVE(){
+            Cell actualCell = new Cell(1,1);
+            playground.getCellByCoordinates(0,0).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(1,0).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(2,0).setCellState(CellState.ALIVE);
+
+            Map<Boolean,Long> result = playground.getNeighboursState(actualCell);
+
+            assertEquals(5L,result.get(false));
+            assertEquals(3L,result.get(true));
+        }
+
+        @Test
+        public void all_neighbours_are_ALIVE(){
+            Cell actualCell = new Cell(1,1);
+            playground.getCellByCoordinates(0,0).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(1,0).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(2,0).setCellState(CellState.ALIVE);
+
+            playground.getCellByCoordinates(0,1).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(2,1).setCellState(CellState.ALIVE);
+
+            playground.getCellByCoordinates(0,2).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(1,2).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(2,2).setCellState(CellState.ALIVE);
+
+            Map<Boolean,Long> result = playground.getNeighboursState(actualCell);
+
+            assertNull(result.get(false));
+            assertEquals(8L,result.get(true));
+        }
 
     }
 }
