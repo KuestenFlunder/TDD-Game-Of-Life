@@ -1,14 +1,12 @@
 package com.KuestenFlunder.UnitTesting;
 
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import static com.KuestenFlunder.UnitTesting.CellState.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,6 +75,20 @@ class PlaygroundTest {
     }
 
     @Nested
+    @DisplayName("test getting the state of a specific Cell")
+    class GetStateOfSpecificCell{
+        Playground playground;
+        @BeforeEach
+        public void setUp(){
+            playground = new Playground(3,3);
+        }
+
+
+
+    }
+
+
+    @Nested
     @DisplayName("test getting the Cell neighbours")
     class getNeighboursTests {
         Playground playground;
@@ -109,7 +121,7 @@ class PlaygroundTest {
     }
 
     @Nested
-    @DisplayName("test getting the state of a cell")
+    @DisplayName("test getting the state of all neighbours from a cell")
     class getCellState{
         Playground playground;
         @BeforeEach
@@ -122,43 +134,43 @@ class PlaygroundTest {
         @Test
         public void all_neighbours_are_DEAD(){
             Cell acutalCell = new Cell(1,1);
-            Map<Boolean,Long> neighboursState = playground.getNeighboursState(acutalCell);
-            assertEquals(8L,neighboursState.get(false));
-            assertNull(neighboursState.get(true));
+            Map<CellState,Long> neighboursState = playground.getNeighboursState(acutalCell);
+            assertEquals(8L,neighboursState.get(DEAD));
+            assertNull(neighboursState.get(ALIVE));
         }
 
         @Test
 
         public void three_neighbours_are_ALIVE(){
             Cell actualCell = new Cell(1,1);
-            playground.getCellByCoordinates(0,0).setCellState(CellState.ALIVE);
-            playground.getCellByCoordinates(1,0).setCellState(CellState.ALIVE);
-            playground.getCellByCoordinates(2,0).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(0,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(1,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,0).setCellState(ALIVE);
 
-            Map<Boolean,Long> result = playground.getNeighboursState(actualCell);
+            Map<CellState,Long> result = playground.getNeighboursState(actualCell);
 
-            assertEquals(5L,result.get(false));
-            assertEquals(3L,result.get(true));
+            assertEquals(5L,result.get(DEAD));
+            assertEquals(3L,result.get(ALIVE));
         }
 
         @Test
         public void all_neighbours_are_ALIVE(){
             Cell actualCell = new Cell(1,1);
-            playground.getCellByCoordinates(0,0).setCellState(CellState.ALIVE);
-            playground.getCellByCoordinates(1,0).setCellState(CellState.ALIVE);
-            playground.getCellByCoordinates(2,0).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(0,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(1,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,0).setCellState(ALIVE);
 
-            playground.getCellByCoordinates(0,1).setCellState(CellState.ALIVE);
-            playground.getCellByCoordinates(2,1).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(0,1).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,1).setCellState(ALIVE);
 
-            playground.getCellByCoordinates(0,2).setCellState(CellState.ALIVE);
-            playground.getCellByCoordinates(1,2).setCellState(CellState.ALIVE);
-            playground.getCellByCoordinates(2,2).setCellState(CellState.ALIVE);
+            playground.getCellByCoordinates(0,2).setCellState(ALIVE);
+            playground.getCellByCoordinates(1,2).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,2).setCellState(ALIVE);
 
-            Map<Boolean,Long> result = playground.getNeighboursState(actualCell);
+            Map<CellState,Long> result = playground.getNeighboursState(actualCell);
 
-            assertNull(result.get(false));
-            assertEquals(8L,result.get(true));
+            assertNull(result.get(DEAD));
+            assertEquals(8L,result.get(ALIVE));
         }
 
     }

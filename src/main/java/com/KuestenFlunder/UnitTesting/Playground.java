@@ -44,7 +44,8 @@ public class Playground {
     }
 
 
-    public List<Cell> findNeighbours(Cell cell) {
+
+    protected List<Cell> findNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
         int x = cell.getPoint().x;
         int y = cell.getPoint().y;
@@ -66,11 +67,11 @@ public class Playground {
         return neighbours;
     }
 
-    public Map<Boolean,Long> getNeighboursState(Cell cell) {
+    public Map<CellState,Long> getNeighboursState(Cell cell) {
 
         return findNeighbours(cell)
                 .stream()
-                .map(neighbour-> neighbour.getCellState().getValue())
+                .map(Cell::getCellState)
                 .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()
                 ));
 
