@@ -89,19 +89,19 @@ class PlaygroundTest {
 
         @Test
         public void find_all_neighbours() {
-            List<Cell> upperRowOfNeighbours = playground.findNeighbours(new Cell(1, 1));
+            List<Cell> neighbours = playground.findNeighbours(new Cell(1, 1));
 
-            assertEquals(8, upperRowOfNeighbours.size());
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(1, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 0)));
+            assertEquals(8, neighbours.size());
+            assertTrue(neighbours.contains(new Cell(0, 0)));
+            assertTrue(neighbours.contains(new Cell(1, 0)));
+            assertTrue(neighbours.contains(new Cell(2, 0)));
 
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 1)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 1)));
+            assertTrue(neighbours.contains(new Cell(0, 1)));
+            assertTrue(neighbours.contains(new Cell(2, 1)));
 
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 2)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(1, 2)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 2)));
+            assertTrue(neighbours.contains(new Cell(0, 2)));
+            assertTrue(neighbours.contains(new Cell(1, 2)));
+            assertTrue(neighbours.contains(new Cell(2, 2)));
 
         }
 
