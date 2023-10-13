@@ -7,6 +7,9 @@ public class Cell {
     private Point point = new Point();
     private CellState cellState;
 
+    public Cell() {
+    }
+
     public Cell(Point point) {
         this.point = point;
         this.cellState = CellState.DEAD;

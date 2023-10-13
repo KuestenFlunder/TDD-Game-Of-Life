@@ -1,13 +1,12 @@
 package com.KuestenFlunder.UnitTesting;
 
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import static com.KuestenFlunder.UnitTesting.CellState.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +16,7 @@ class PlaygroundTest {
     @DisplayName("test playground creation")
     class PlaygroundCreation {
         @Test
-        public void set_x_side_to_size_one_playground() {
+        public void create_1_cell_at_the_playground() {
             Playground playground = new Playground();
 
             playground.setCellField(1, 1);
@@ -26,7 +25,7 @@ class PlaygroundTest {
         }
 
         @Test
-        public void set_x_side_to_size_5_playground() {
+        public void create_a_row_of_5_cells() {
             Playground playground = new Playground();
 
             playground.setCellField(5, 1);
@@ -35,7 +34,7 @@ class PlaygroundTest {
         }
 
         @Test
-        public void lenght_x5_y4_result_in_fieldOf20() {
+        public void create_a_4x5_playground() {
             Playground playground = new Playground();
 
             playground.setCellField(5, 4);
@@ -76,51 +75,133 @@ class PlaygroundTest {
     }
 
     @Nested
+    @DisplayName("test getting the state of a specific Cell")
+    class GetStateOfSpecificCell{
+        Playground playground;
+        @BeforeEach
+        public void setUp(){
+            playground = new Playground(3,3);
+        }
+
+        @Test
+        public void cell_1_1_is_DEAD(){
+            Cell actualCell = new Cell(1,1);
+            assertEquals(DEAD,playground.getCellState(actualCell));
+        }
+        @Test
+        public void cell_1_1_is_ALIVE(){
+            playground.getCellByCoordinates(1,1).setCellState(ALIVE);
+            Cell actualCell = new Cell(1,1);
+            assertEquals(ALIVE,playground.getCellState(actualCell));
+            assertEquals(DEAD,playground.getCellByCoordinates(2,2).getCellState());
+        }
+    }
+
+
+    @Nested
     @DisplayName("test getting the Cell neighbours")
     class getNeighboursTests {
         Playground playground;
+
 
         @BeforeEach
         public void setUp() {
             playground = new Playground(3, 3);
         }
 
-        @Test
-        public void get_the_neighbour_above_from_Cell_1_1() {
-            List<Cell> foundNeighbour = playground.findNeighbours(new Cell(1, 1));
-
-            assertTrue(foundNeighbour.contains(new Cell(1, 0)));
-        }
-
-        @Test
-        public void find_rowOfNeighbours_above() {
-            List<Cell> upperRowOfNeighbours = playground.findNeighbours(new Cell(1, 1));
-
-            assertEquals(8, upperRowOfNeighbours.size());
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(1, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 0)));
-
-        }
 
         @Test
         public void find_all_neighbours() {
-            List<Cell> upperRowOfNeighbours = playground.findNeighbours(new Cell(1, 1));
+            List<Cell> neighbours = playground.findNeighbours(new Cell(1, 1));
 
-            assertEquals(8, upperRowOfNeighbours.size());
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(1, 0)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 0)));
+            assertEquals(8, neighbours.size());
+            assertTrue(neighbours.contains(new Cell(0, 0)));
+            assertTrue(neighbours.contains(new Cell(1, 0)));
+            assertTrue(neighbours.contains(new Cell(2, 0)));
 
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 1)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 1)));
+            assertTrue(neighbours.contains(new Cell(0, 1)));
+            assertTrue(neighbours.contains(new Cell(2, 1)));
 
-            assertTrue(upperRowOfNeighbours.contains(new Cell(0, 2)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(1, 2)));
-            assertTrue(upperRowOfNeighbours.contains(new Cell(2, 2)));
+            assertTrue(neighbours.contains(new Cell(0, 2)));
+            assertTrue(neighbours.contains(new Cell(1, 2)));
+            assertTrue(neighbours.contains(new Cell(2, 2)));
 
         }
 
     }
 
+    @Nested
+    @DisplayName("test getting the state of all neighbours from a cell")
+    class getCellStateOfNeighbours{
+        Playground playground;
+        @BeforeEach
+        public void setUp() {
+            //default playground with only dead cells
+            playground = new Playground(3, 3);
+        }
+
+
+        @Test
+        public void all_neighbours_are_DEAD(){
+            Cell acutalCell = new Cell(1,1);
+            Map<CellState,Long> neighboursState = playground.getNeighboursState(acutalCell);
+            assertEquals(8L,neighboursState.get(DEAD));
+            assertNull(neighboursState.get(ALIVE));
+        }
+
+        @Test
+        public void three_neighbours_are_ALIVE(){
+            Cell actualCell = new Cell(1,1);
+            playground.getCellByCoordinates(0,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(1,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,0).setCellState(ALIVE);
+
+            Map<CellState,Long> result = playground.getNeighboursState(actualCell);
+
+            assertEquals(5L,result.get(DEAD));
+            assertEquals(3L,result.get(ALIVE));
+        }
+
+        @Test
+        public void all_neighbours_are_ALIVE(){
+            Cell actualCell = new Cell(1,1);
+            playground.getCellByCoordinates(0,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(1,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,0).setCellState(ALIVE);
+
+            playground.getCellByCoordinates(0,1).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,1).setCellState(ALIVE);
+
+            playground.getCellByCoordinates(0,2).setCellState(ALIVE);
+            playground.getCellByCoordinates(1,2).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,2).setCellState(ALIVE);
+
+            Map<CellState,Long> result = playground.getNeighboursState(actualCell);
+
+            assertNull(result.get(DEAD));
+            assertEquals(8L,result.get(ALIVE));
+        }
+
+
+        @Test
+        public void corner_with_negative_nonExisting_neighbours_has_one_neighbour_alive(){
+            Cell acutalCell = new Cell(0,0);
+            playground.getCellByCoordinates(0,1).setCellState(ALIVE);
+
+            Map<CellState,Long> result = playground.getNeighboursState(acutalCell);
+
+            assertEquals(1L,result.get(ALIVE));
+        }
+
+        @Test
+        public void corner_with_positive_nonExisting_neighbours_has_two_neighbour_alive(){
+            Cell acutalCell = new Cell(2,2);
+            playground.getCellByCoordinates(1,1).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,1).setCellState(ALIVE);
+
+            Map<CellState,Long> result = playground.getNeighboursState(acutalCell);
+
+            assertEquals(2L,result.get(ALIVE));
+        }
+    }
 }
