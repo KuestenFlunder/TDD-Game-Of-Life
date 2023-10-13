@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class Playground {
+    SparkOfLife sparkOfLife;
     public List<Cell> cellField = new ArrayList<>();
 
     public Playground() {

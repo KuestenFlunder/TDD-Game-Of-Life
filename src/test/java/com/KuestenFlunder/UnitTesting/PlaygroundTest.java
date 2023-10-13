@@ -17,7 +17,7 @@ class PlaygroundTest {
     @DisplayName("test playground creation")
     class PlaygroundCreation {
         @Test
-        public void set_x_side_to_size_one_playground() {
+        public void create_1_cell_at_the_playground() {
             Playground playground = new Playground();
 
             playground.setCellField(1, 1);
@@ -26,7 +26,7 @@ class PlaygroundTest {
         }
 
         @Test
-        public void set_x_side_to_size_5_playground() {
+        public void create_a_row_of_5_cells() {
             Playground playground = new Playground();
 
             playground.setCellField(5, 1);
@@ -35,7 +35,7 @@ class PlaygroundTest {
         }
 
         @Test
-        public void lenght_x5_y4_result_in_fieldOf20() {
+        public void create_a_4x5_playground() {
             Playground playground = new Playground();
 
             playground.setCellField(5, 4);
@@ -123,4 +123,17 @@ class PlaygroundTest {
 
     }
 
+    @Nested
+    @DisplayName("test getting the state of a cell")
+    class getCellState{
+        Playground playground;
+        @BeforeEach
+        public void setUp() {
+            //default playground with only dead cells
+            playground = new Playground(3, 3);
+        }
+
+
+
+    }
 }

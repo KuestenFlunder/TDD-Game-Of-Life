@@ -18,7 +18,7 @@ public class SparkOfLife {
         if (neighborsState.size() != 8) throw new IllegalArgumentException("There should be 8 neighbours!");
     }
 
-    public CellState checkState(CellState actualState, List<Boolean> neighbors) {
+    public CellState checkStateOfActualCell(CellState actualState, List<Boolean> neighbors) {
         validateNeighborsListLenghtIsEight(neighbors);
         long numberOfLivingNeighbors = countLivingNeighbors(neighbors);
 
