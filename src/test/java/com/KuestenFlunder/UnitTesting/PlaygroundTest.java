@@ -83,8 +83,18 @@ class PlaygroundTest {
             playground = new Playground(3,3);
         }
 
-
-
+        @Test
+        public void cell_1_1_is_DEAD(){
+            Cell actualCell = new Cell(1,1);
+            assertEquals(DEAD,playground.getCellState(actualCell));
+        }
+        @Test
+        public void cell_1_1_is_ALIVE(){
+            playground.getCellByCoordinates(1,1).setCellState(ALIVE);
+            Cell actualCell = new Cell(1,1);
+            assertEquals(ALIVE,playground.getCellState(actualCell));
+            assertEquals(DEAD,playground.getCellByCoordinates(2,2).getCellState());
+        }
     }
 
 

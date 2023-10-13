@@ -9,11 +9,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Playground {
-    SparkOfLife sparkOfLife;
     public List<Cell> cellField = new ArrayList<>();
+    SparkOfLife sparkOfLife;
 
     public Playground() {
     }
+
     //expected Field orientation
     //P(0,0) P(1,0) P(2,0)
     //P(0,1) P(1,1) P(2,1)
@@ -44,14 +45,13 @@ public class Playground {
     }
 
 
-
     protected List<Cell> findNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
         int x = cell.getPoint().x;
         int y = cell.getPoint().y;
 
-        int[] xOffsets = { -1, 0, 1 };
-        int[] yOffsets = { -1, 0, 1 };
+        int[] xOffsets = {-1, 0, 1};
+        int[] yOffsets = {-1, 0, 1};
 
         for (int xOffset : xOffsets) {
             for (int yOffset : yOffsets) {
@@ -67,18 +67,18 @@ public class Playground {
         return neighbours;
     }
 
-    public Map<CellState,Long> getNeighboursState(Cell cell) {
+    public Map<CellState, Long> getNeighboursState(Cell cell) {
 
         return findNeighbours(cell)
                 .stream()
                 .map(Cell::getCellState)
-                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()
                 ));
+    }
 
 
-
-
-//                    .map(neighbour -> neighbour.getCellState().getValue())
-//                    .toList();
+    public CellState getCellState(Cell actualCell) {
+        Cell searchedCell = getCellByCoordinates(actualCell.getPoint().x, actualCell.getPoint().y);
+        return searchedCell.getCellState();
     }
 }
