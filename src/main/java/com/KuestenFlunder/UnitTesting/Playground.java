@@ -16,9 +16,10 @@ public class Playground {
     }
 
     //expected Field orientation
-    //P(0,0) P(1,0) P(2,0)
-    //P(0,1) P(1,1) P(2,1)
     //P(0,2) P(1,2) P(2,2)
+    //P(0,1) P(1,1) P(2,1)
+    //P(0,0) P(1,0) P(2,0)
+
     public Playground(int xLenght, int yLegth) {
         setCellField(xLenght, yLegth);
         System.out.println();
@@ -32,6 +33,15 @@ public class Playground {
         }
     }
 
+    public Map<CellState, Long> getNeighboursState(Cell cell) {
+
+        return findNeighbours(cell)
+                .stream()
+                .map(Cell::getCellState)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()
+                ));
+    }
+
     public Cell getCellByCoordinates(int x, int y) {
         //? for better readability : deletion could be discussed
         Cell searchedCell = new Cell(x, y);
@@ -43,7 +53,6 @@ public class Playground {
                         () -> new NoSuchElementException(
                                 String.format("There is no Cell with the coordinates Point(%d,%d)", x, y)));
     }
-
 
     protected List<Cell> findNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
@@ -60,22 +69,16 @@ public class Playground {
                 }
                 int newX = x + xOffset;
                 int newY = y + yOffset;
-                Cell neighborCell = getCellByCoordinates(newX, newY);
-                neighbours.add(neighborCell);
+                try {
+                    Cell neighborCell = getCellByCoordinates(newX, newY);
+                    neighbours.add(neighborCell);
+                } catch (NoSuchElementException ex) {
+                    neighbours.add(new Cell(newX, newY));
+                }
             }
         }
         return neighbours;
     }
-
-    public Map<CellState, Long> getNeighboursState(Cell cell) {
-
-        return findNeighbours(cell)
-                .stream()
-                .map(Cell::getCellState)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()
-                ));
-    }
-
 
     public CellState getCellState(Cell actualCell) {
         Cell searchedCell = getCellByCoordinates(actualCell.getPoint().x, actualCell.getPoint().y);

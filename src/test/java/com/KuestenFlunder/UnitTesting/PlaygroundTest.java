@@ -132,7 +132,7 @@ class PlaygroundTest {
 
     @Nested
     @DisplayName("test getting the state of all neighbours from a cell")
-    class getCellState{
+    class getCellStateOfNeighbours{
         Playground playground;
         @BeforeEach
         public void setUp() {
@@ -150,7 +150,6 @@ class PlaygroundTest {
         }
 
         @Test
-
         public void three_neighbours_are_ALIVE(){
             Cell actualCell = new Cell(1,1);
             playground.getCellByCoordinates(0,0).setCellState(ALIVE);
@@ -183,5 +182,26 @@ class PlaygroundTest {
             assertEquals(8L,result.get(ALIVE));
         }
 
+
+        @Test
+        public void corner_with_negative_nonExisting_neighbours_has_one_neighbour_alive(){
+            Cell acutalCell = new Cell(0,0);
+            playground.getCellByCoordinates(0,1).setCellState(ALIVE);
+
+            Map<CellState,Long> result = playground.getNeighboursState(acutalCell);
+
+            assertEquals(1L,result.get(ALIVE));
+        }
+
+        @Test
+        public void corner_with_positive_nonExisting_neighbours_has_two_neighbour_alive(){
+            Cell acutalCell = new Cell(2,2);
+            playground.getCellByCoordinates(1,1).setCellState(ALIVE);
+            playground.getCellByCoordinates(2,1).setCellState(ALIVE);
+
+            Map<CellState,Long> result = playground.getNeighboursState(acutalCell);
+
+            assertEquals(2L,result.get(ALIVE));
+        }
     }
 }
