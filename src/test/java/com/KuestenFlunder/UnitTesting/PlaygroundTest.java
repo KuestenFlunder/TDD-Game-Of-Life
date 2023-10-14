@@ -1,10 +1,7 @@
 package com.KuestenFlunder.UnitTesting;
 
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 import java.util.Map;
@@ -173,7 +170,7 @@ class PlaygroundTest {
             Cell acutalCell = new Cell(1, 1);
             Map<CellState, Long> neighboursState = playground.getNeighboursState(acutalCell);
             assertEquals(8L, neighboursState.get(DEAD));
-            assertNull(neighboursState.get(ALIVE));
+            assertEquals(0,neighboursState.get(ALIVE));
         }
 
         @Test
@@ -205,7 +202,7 @@ class PlaygroundTest {
 
             Map<CellState, Long> result = playground.getNeighboursState(actualCell);
 
-            assertNull(result.get(DEAD));
+            assertEquals(0,result.get(DEAD));
             assertEquals(8L, result.get(ALIVE));
         }
 
@@ -271,7 +268,48 @@ class PlaygroundTest {
 
     }
 
+    @Nested
+    @DisplayName("test playground creation for the next round")
+    class createNextRoundsPlayground{
+        Playground playground;
+        @BeforeEach
+        public void setUp(){
+            playground = new Playground(3,3);
+        }
 
+        @Test
+        public void cell_x0y0_is_Alive(){
+            Playground resultigPlayground = playground.getPlaygroundForNextRound();
+            assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(0,0).getCellState());
+        }
+
+        @Test
+        public void cell_x1y1_is_Alive(){
+            //set up some living cells to give Cell(1,1) 3 living neighbours
+            playground.getCellByCoordinates(0,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(1,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(0,1).setCellState(ALIVE);
+
+            Playground resultigPlayground = playground.getPlaygroundForNextRound();
+            assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1,1).getCellState());
+        }
+
+        @Test
+        public void all_cells_stay_dead(){
+
+            Playground resultingPlayground = playground.getPlaygroundForNextRound();
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(0,0).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(1,0).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(2,0).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(0,1).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(1,1).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(2,1).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(0,2).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(1,2).getCellState());
+            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(2,2).getCellState());
+        }
+
+    }
 
 
 

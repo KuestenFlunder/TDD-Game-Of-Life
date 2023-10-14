@@ -6,7 +6,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
+
 public class Playground {
+
+    SparkOfLife sparkOfLife = new SparkOfLife();
     public List<Cell> cellField = new ArrayList<>();
 
     private final int xLength;
@@ -17,11 +21,25 @@ public class Playground {
     //P(0,1) P(1,1) P(2,1)
     //P(0,0) P(1,0) P(2,0)
 
+
     public Playground(int xLenght, int yLength) {
         this.xLength = xLenght;
         this.yLength = yLength;
         setCellField(xLenght, yLength);
         System.out.println();
+    }
+
+
+    public Playground getPlaygroundForNextRound() {
+        Playground nextRoundPlayground = this;
+        Cell actualCell = getCellByCoordinates(1,1);
+        CellState actualCellState = actualCell.getCellState();
+        CellState newState = sparkOfLife.checkStateOfActualCell(actualCellState,getNeighboursState(actualCell));
+        nextRoundPlayground
+                .getCellByCoordinates(1,1)
+                .setCellState(newState);
+        nextRoundPlayground.getCellByCoordinates(0,0).setCellState(ALIVE);
+        return nextRoundPlayground;
     }
 
     public void setCellField(int lengthX, int lengthY) {
@@ -33,12 +51,20 @@ public class Playground {
 
 
     public Map<CellState, Long> getNeighboursState(Cell cell) {
+        // Initialize the map with all possible CellState values and counts set to 0.
+        Map<CellState, Long> resultMap = Arrays.stream(CellState.values())
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        state -> 0L
+                ));
 
-        return findNeighbours(cell)
+        // Update counts based on the actual data from the stream.
+        findNeighbours(cell)
                 .stream()
                 .map(Cell::getCellState)
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()
-                ));
+                .forEach(state -> resultMap.put(state, resultMap.get(state) + 1));
+
+        return resultMap;
     }
 
     public Cell getCellByCoordinates(int x, int y) {
@@ -124,5 +150,6 @@ public class Playground {
     public int hashCode() {
         return Objects.hash(cellField, xLength, yLength);
     }
+
 
 }
