@@ -10,11 +10,10 @@ import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
 
 public class Playground {
 
-    SparkOfLife sparkOfLife = new SparkOfLife();
-    public List<Cell> cellField = new ArrayList<>();
-
     private final int xLength;
     private final int yLength;
+    public List<Cell> cellField = new ArrayList<>();
+    SparkOfLife sparkOfLife = new SparkOfLife();
 
     //expected Field orientation
     //P(0,2) P(1,2) P(2,2)
@@ -32,13 +31,17 @@ public class Playground {
 
     public Playground getPlaygroundForNextRound() {
         Playground nextRoundPlayground = this;
-        Cell actualCell = getCellByCoordinates(1,1);
+
+        Cell actualCell = getCellByCoordinates(1, 0);
         CellState actualCellState = actualCell.getCellState();
-        CellState newState = sparkOfLife.checkStateOfActualCell(actualCellState,getNeighboursState(actualCell));
+        CellState newState = sparkOfLife
+                .checkStateOfActualCell(actualCellState,
+                getNeighboursState(actualCell));
         nextRoundPlayground
-                .getCellByCoordinates(1,1)
+                .getCellByObject(actualCell)
                 .setCellState(newState);
-        nextRoundPlayground.getCellByCoordinates(0,0).setCellState(ALIVE);
+
+
         return nextRoundPlayground;
     }
 
@@ -78,6 +81,7 @@ public class Playground {
                         () -> new NoSuchElementException(
                                 String.format("There is no Cell with the coordinates Point(%d,%d)", x, y)));
     }
+
     public Cell getCellByObject(Cell searchedCell) {
 
         int x = searchedCell.getPoint().x;
@@ -90,6 +94,7 @@ public class Playground {
                         () -> new NoSuchElementException(
                                 String.format("There is no Cell with the coordinates Point(%d,%d)", x, y)));
     }
+
     protected List<Cell> findNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
         int x = cell.getPoint().x;
