@@ -1,7 +1,10 @@
 package com.KuestenFlunder.UnitTesting;
 
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
@@ -114,7 +117,7 @@ class PlaygroundTest {
         public void cell_1_1_is_ALIVE() {
             playground = new Playground(3, 3);
             playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
-            Cell actualCell = playground.getCellByCoordinates(1,1);
+            Cell actualCell = playground.getCellByCoordinates(1, 1);
             assertEquals(ALIVE, playground.getCellState(actualCell));
             assertEquals(DEAD, playground.getCellByCoordinates(2, 2).getCellState());
         }
@@ -170,7 +173,7 @@ class PlaygroundTest {
             Cell acutalCell = new Cell(1, 1);
             Map<CellState, Long> neighboursState = playground.getNeighboursState(acutalCell);
             assertEquals(8L, neighboursState.get(DEAD));
-            assertEquals(0,neighboursState.get(ALIVE));
+            assertEquals(0, neighboursState.get(ALIVE));
         }
 
         @Test
@@ -202,7 +205,7 @@ class PlaygroundTest {
 
             Map<CellState, Long> result = playground.getNeighboursState(actualCell);
 
-            assertEquals(0,result.get(DEAD));
+            assertEquals(0, result.get(DEAD));
             assertEquals(8L, result.get(ALIVE));
         }
 
@@ -258,7 +261,7 @@ class PlaygroundTest {
         }
 
         @Test
-        public void next_Cell_from_last_Cell_return_null(){
+        public void next_Cell_from_last_Cell_return_null() {
             Cell actualCell = playground.getCellByCoordinates(2, 2);
 
             Cell nextCorrectCell = playground.getNextCell(actualCell);
@@ -270,45 +273,55 @@ class PlaygroundTest {
 
     @Nested
     @DisplayName("test playground creation for the next round")
-    class createNextRoundsPlayground{
+    class createNextRoundsPlayground {
         Playground playground;
+
         @BeforeEach
-        public void setUp(){
-            playground = new Playground(3,3);
+        public void setUp() {
+            playground = new Playground(3, 3);
         }
 
 
         @Test
-        public void cell_x1y0_is_Alive(){
+        public void cell_x1y0_is_Alive() {
 
-            playground.getCellByCoordinates(0,0).setCellState(ALIVE);
-            playground.getCellByCoordinates(1,1).setCellState(ALIVE);
-            playground.getCellByCoordinates(2,0).setCellState(ALIVE);
+            playground.getCellByCoordinates(0, 0).setCellState(ALIVE);
+            playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
+            playground.getCellByCoordinates(2, 0).setCellState(ALIVE);
 
             Playground resultigPlayground = playground.getPlaygroundForNextRound();
-            assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1,0).getCellState());
+            assertEquals(DEAD, resultigPlayground.getCellByCoordinates(0, 0).getCellState());
+            assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1, 1).getCellState());
+            assertEquals(DEAD, resultigPlayground.getCellByCoordinates(2, 0).getCellState());
         }
+
 
         @Test
-        public void all_cells_stay_dead(){
-            playground.getCellByCoordinates(1,2).setCellState(ALIVE);
-            playground.getCellByCoordinates(2,1).setCellState(ALIVE);
-            playground.getCellByCoordinates(2,2).setCellState(ALIVE);
+        public void cell_x1y0_x2y0_x1y2_x2y2_are_DEAD_in_next_round() {
+            playground.getCellByCoordinates(1, 0).setCellState(ALIVE);
+            playground.getCellByCoordinates(0, 1).setCellState(ALIVE);
+            playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
+            playground.getCellByCoordinates(2, 1).setCellState(ALIVE);
+            playground.getCellByCoordinates(1, 2).setCellState(ALIVE);
 
             Playground resultingPlayground = playground.getPlaygroundForNextRound();
-            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(0,0).getCellState());
-            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(1,0).getCellState());
-            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(2,0).getCellState());
-            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(0,1).getCellState());
-            assertEquals(ALIVE,resultingPlayground.getCellByCoordinates(1,1).getCellState());
-            assertEquals(ALIVE,resultingPlayground.getCellByCoordinates(2,1).getCellState());
-            assertEquals(DEAD,resultingPlayground.getCellByCoordinates(0,2).getCellState());
-            assertEquals(ALIVE,resultingPlayground.getCellByCoordinates(1,2).getCellState());
-            assertEquals(ALIVE,resultingPlayground.getCellByCoordinates(2,2).getCellState());
+
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(0, 0).getCellState());
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(1, 0).getCellState());
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(2, 0).getCellState());
+
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(0, 1).getCellState());
+            assertEquals(DEAD, resultingPlayground.getCellByCoordinates(1, 1).getCellState());
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(2, 1).getCellState());
+
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(0, 2).getCellState());
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(1, 2).getCellState());
+            assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(2, 2).getCellState());
+
         }
 
-    }
 
+    }
 
 
 }

@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
 
 public class Playground {
 
@@ -25,22 +24,26 @@ public class Playground {
         this.xLength = xLenght;
         this.yLength = yLength;
         setCellField(xLenght, yLength);
-        System.out.println();
+
     }
 
 
     public Playground getPlaygroundForNextRound() {
-        Playground nextRoundPlayground = this;
+        // create new Playground to stick with Conways rule that every Step is based on
+        // a static snapshot of the last round.
+        Playground nextRoundPlayground = new Playground(xLength, yLength);
 
-        Cell actualCell = getCellByCoordinates(1, 0);
-        CellState actualCellState = actualCell.getCellState();
-        CellState newState = sparkOfLife
-                .checkStateOfActualCell(actualCellState,
-                getNeighboursState(actualCell));
-        nextRoundPlayground
-                .getCellByObject(actualCell)
-                .setCellState(newState);
-
+        Cell actualCell = getCellByCoordinates(0, 0);
+        while (actualCell != null) {
+            CellState actualCellState = actualCell.getCellState();
+            CellState newState = sparkOfLife
+                    .checkStateOfActualCell(actualCellState,
+                            getNeighboursState(actualCell));
+            nextRoundPlayground
+                    .getCellByObject(actualCell)
+                    .setCellState(newState);
+            actualCell = getNextCell(actualCell);
+        }
 
         return nextRoundPlayground;
     }
