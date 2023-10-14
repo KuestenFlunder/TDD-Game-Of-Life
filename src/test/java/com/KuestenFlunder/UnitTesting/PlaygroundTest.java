@@ -293,6 +293,8 @@ class PlaygroundTest {
             assertEquals(DEAD, resultigPlayground.getCellByCoordinates(0, 0).getCellState());
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1, 1).getCellState());
             assertEquals(DEAD, resultigPlayground.getCellByCoordinates(2, 0).getCellState());
+            assertEquals(DEAD, resultigPlayground.getCellByCoordinates(0, 1).getCellState());
+
         }
 
 
