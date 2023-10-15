@@ -1,4 +1,4 @@
-package com.KuestenFlunder.UnitTesting;
+package com.KuestenFlunder.GameOfLife;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.KuestenFlunder.UnitTesting.CellState.*;
+import static com.KuestenFlunder.GameOfLife.CellState.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SparkOfLifeTest {

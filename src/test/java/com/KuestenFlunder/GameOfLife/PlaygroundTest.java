@@ -1,4 +1,4 @@
-package com.KuestenFlunder.UnitTesting;
+package com.KuestenFlunder.GameOfLife;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
-import static com.KuestenFlunder.UnitTesting.CellState.DEAD;
+import static com.KuestenFlunder.GameOfLife.CellState.ALIVE;
+import static com.KuestenFlunder.GameOfLife.CellState.DEAD;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlaygroundTest {

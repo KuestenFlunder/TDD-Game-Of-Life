@@ -1,9 +1,8 @@
-package com.KuestenFlunder.UnitTesting;
+package com.KuestenFlunder.GameOfLife;
 
-import java.util.List;
 import java.util.Map;
 
-import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
+import static com.KuestenFlunder.GameOfLife.CellState.ALIVE;
 
 
 public class SparkOfLife {
