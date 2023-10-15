@@ -1,6 +1,6 @@
 package com.KuestenFlunder.UnitTesting;
 
 public interface UIOutput {
-    void displayPlayground();
+    void displayPlayground(Playground playgroundToDisplay);
 
 }
