@@ -322,6 +322,20 @@ class PlaygroundTest {
 
         }
 
+        @Test
+        public void returns_opposite_blinker_position() {
+            //set up positiv blinker pattern
+            playground.getCellByCoordinates(1, 0).setCellState(ALIVE);
+            playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
+            playground.getCellByCoordinates(1, 2).setCellState(ALIVE);
+
+            Playground resultigPlayground = playground.getPlaygroundForNextRound();
+            assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(0, 1).getCellState());
+            assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1, 1).getCellState());
+            assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(2, 1).getCellState());
+
+        }
+
 
     }
 
