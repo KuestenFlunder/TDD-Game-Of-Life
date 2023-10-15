@@ -36,6 +36,13 @@ class GameOfLiveControllerTest {
         verify(uiOutput,times(1)).displayPlayground(startPlayground);
     }
 
+    @Test
+    public void call_UIOutput_twice() {
+        gameOfLiveController.playAndSendUpdatesToUI(startPlayground,2);
+        verify(uiOutput,times(2)).displayPlayground(startPlayground);
+    }
+
+
 
 
 }
