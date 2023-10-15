@@ -1,5 +1,7 @@
-package com.KuestenFlunder.UnitTesting;
+package com.KuestenFlunder.GameOfLife;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
 import java.util.function.Function;
@@ -8,10 +10,12 @@ import java.util.stream.IntStream;
 
 
 public class Playground {
-
-    private final int xLength;
-    private final int yLength;
+    @JsonIgnore
+    private  int xLength;
+    @JsonIgnore
+    private  int yLength;
     public List<Cell> cellField = new ArrayList<>();
+    @JsonIgnore
     SparkOfLife sparkOfLife = new SparkOfLife();
 
     //expected Field orientation
@@ -19,6 +23,13 @@ public class Playground {
     //P(0,1) P(1,1) P(2,1)
     //P(0,0) P(1,0) P(2,0)
 
+
+    public List<Cell> getCellField() {
+        return cellField;
+    }
+
+    public Playground() {
+    }
 
     public Playground(int xLenght, int yLength) {
         this.xLength = xLenght;
@@ -28,7 +39,7 @@ public class Playground {
     }
 
 
-    public Playground getPlaygroundForNextRound() {
+    public Playground computePlaygroundForNextRound() {
         // create new Playground to stick with Conways rule that every Step is based on
         // a static snapshot of the last round.
         Playground nextRoundPlayground = new Playground(xLength, yLength);
@@ -159,5 +170,10 @@ public class Playground {
         return Objects.hash(cellField, xLength, yLength);
     }
 
-
+    @Override
+    public String toString() {
+        return "Playground{" +
+                "cellField=" + cellField +
+                '}';
+    }
 }

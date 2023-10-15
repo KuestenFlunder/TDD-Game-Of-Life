@@ -1,4 +1,4 @@
-package com.KuestenFlunder.UnitTesting;
+package com.KuestenFlunder.GameOfLife;
 
 public interface UIOutput {
     void displayPlayground(Playground playgroundToDisplay);

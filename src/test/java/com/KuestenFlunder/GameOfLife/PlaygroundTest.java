@@ -1,4 +1,4 @@
-package com.KuestenFlunder.UnitTesting;
+package com.KuestenFlunder.GameOfLife;
 
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.KuestenFlunder.UnitTesting.CellState.ALIVE;
-import static com.KuestenFlunder.UnitTesting.CellState.DEAD;
+import static com.KuestenFlunder.GameOfLife.CellState.ALIVE;
+import static com.KuestenFlunder.GameOfLife.CellState.DEAD;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlaygroundTest {
@@ -289,7 +289,7 @@ class PlaygroundTest {
             playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
             playground.getCellByCoordinates(2, 0).setCellState(ALIVE);
 
-            Playground resultigPlayground = playground.getPlaygroundForNextRound();
+            Playground resultigPlayground = playground.computePlaygroundForNextRound();
             assertEquals(DEAD, resultigPlayground.getCellByCoordinates(0, 0).getCellState());
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1, 1).getCellState());
             assertEquals(DEAD, resultigPlayground.getCellByCoordinates(2, 0).getCellState());
@@ -306,7 +306,7 @@ class PlaygroundTest {
             playground.getCellByCoordinates(2, 1).setCellState(ALIVE);
             playground.getCellByCoordinates(1, 2).setCellState(ALIVE);
 
-            Playground resultingPlayground = playground.getPlaygroundForNextRound();
+            Playground resultingPlayground = playground.computePlaygroundForNextRound();
 
             assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(0, 0).getCellState());
             assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(1, 0).getCellState());
@@ -329,7 +329,7 @@ class PlaygroundTest {
             playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
             playground.getCellByCoordinates(1, 2).setCellState(ALIVE);
 
-            Playground resultigPlayground = playground.getPlaygroundForNextRound();
+            Playground resultigPlayground = playground.computePlaygroundForNextRound();
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(0, 1).getCellState());
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1, 1).getCellState());
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(2, 1).getCellState());

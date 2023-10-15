@@ -1,11 +1,11 @@
-package com.KuestenFlunder.UnitTesting;
+package com.KuestenFlunder.GameOfLife;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static com.KuestenFlunder.UnitTesting.CellState.*;
+import static com.KuestenFlunder.GameOfLife.CellState.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
