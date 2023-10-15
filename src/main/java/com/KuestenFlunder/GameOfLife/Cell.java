@@ -1,6 +1,6 @@
 package com.KuestenFlunder.GameOfLife;
 
-import lombok.Getter;
+
 
 import java.awt.*;
 import java.util.Objects;

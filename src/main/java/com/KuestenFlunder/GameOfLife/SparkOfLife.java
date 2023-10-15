@@ -1,6 +1,6 @@
 package com.KuestenFlunder.GameOfLife;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import java.util.Map;
 
