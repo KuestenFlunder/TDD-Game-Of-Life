@@ -21,9 +21,8 @@ public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
         for (int i = 0; i < rounds; i++) {
             playground = playground.computePlaygroundForNextRound();
             session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(playground)));
-            System.out.println(playground);
-            System.out.println();
-            Thread.sleep(50); // Sleep for half a second (or desired time) between updates
+            System.out.println("Send new Playground to Client");
+            Thread.sleep(500); // Sleep for half a second (or desired time) between updates
         }
     }
 }

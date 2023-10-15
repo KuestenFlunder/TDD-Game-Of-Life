@@ -13,11 +13,14 @@ public class UnitTestingApplication {
 
 	@Bean
 	public Playground playground() {
-		Playground playground = new Playground(10, 10);
+		Playground playground = new Playground(20, 20);
 		//add blicker pattern to playground
-		playground.getCellByCoordinates(2, 1).setCellState(CellState.ALIVE);
-		playground.getCellByCoordinates(2, 2).setCellState(CellState.ALIVE);
-		playground.getCellByCoordinates(2, 3).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(7, 4).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(7, 5).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(8,6).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(6,5).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(6,6).setCellState(CellState.ALIVE);
+
 		return playground;
 	}
 	@Bean
