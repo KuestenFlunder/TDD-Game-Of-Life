@@ -20,4 +20,8 @@ public class UnitTestingApplication {
 		playground.getCellByCoordinates(2, 3).setCellState(CellState.ALIVE);
 		return playground;
 	}
+	@Bean
+	public GameOfLiveWebSocketHandler gameOfLiveWebSocketHandler(Playground playground) {
+		return new GameOfLiveWebSocketHandler(playground);
+	}
 }

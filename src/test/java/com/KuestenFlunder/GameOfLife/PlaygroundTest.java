@@ -289,7 +289,7 @@ class PlaygroundTest {
             playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
             playground.getCellByCoordinates(2, 0).setCellState(ALIVE);
 
-            Playground resultigPlayground = playground.getPlaygroundForNextRound();
+            Playground resultigPlayground = playground.computePlaygroundForNextRound();
             assertEquals(DEAD, resultigPlayground.getCellByCoordinates(0, 0).getCellState());
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1, 1).getCellState());
             assertEquals(DEAD, resultigPlayground.getCellByCoordinates(2, 0).getCellState());
@@ -306,7 +306,7 @@ class PlaygroundTest {
             playground.getCellByCoordinates(2, 1).setCellState(ALIVE);
             playground.getCellByCoordinates(1, 2).setCellState(ALIVE);
 
-            Playground resultingPlayground = playground.getPlaygroundForNextRound();
+            Playground resultingPlayground = playground.computePlaygroundForNextRound();
 
             assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(0, 0).getCellState());
             assertEquals(ALIVE, resultingPlayground.getCellByCoordinates(1, 0).getCellState());
@@ -329,7 +329,7 @@ class PlaygroundTest {
             playground.getCellByCoordinates(1, 1).setCellState(ALIVE);
             playground.getCellByCoordinates(1, 2).setCellState(ALIVE);
 
-            Playground resultigPlayground = playground.getPlaygroundForNextRound();
+            Playground resultigPlayground = playground.computePlaygroundForNextRound();
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(0, 1).getCellState());
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(1, 1).getCellState());
             assertEquals(ALIVE, resultigPlayground.getCellByCoordinates(2, 1).getCellState());

@@ -5,11 +5,18 @@ import lombok.Getter;
 import java.awt.*;
 import java.util.Objects;
 
-@Getter
+
 public class Cell {
     private final Point point = new Point();
     private CellState cellState;
 
+    public Point getPoint() {
+        return point;
+    }
+
+    public CellState getCellState() {
+        return cellState;
+    }
 
     public Cell(int x, int y) {
         this.point.x = x;
