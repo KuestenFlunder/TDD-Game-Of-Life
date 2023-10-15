@@ -12,7 +12,7 @@
 	<artifactId>UnitTesting</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>UnitTesting</name>
-	<description>Learn Unit Testing and Mockito with ChatGPT4</description>
+
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -32,6 +32,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>

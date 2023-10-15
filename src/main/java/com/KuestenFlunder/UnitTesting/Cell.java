@@ -1,19 +1,15 @@
 package com.KuestenFlunder.UnitTesting;
 
+import lombok.Getter;
+
 import java.awt.*;
 import java.util.Objects;
 
+@Getter
 public class Cell {
-    private Point point = new Point();
+    private final Point point = new Point();
     private CellState cellState;
 
-    public Cell() {
-    }
-
-    public Cell(Point point) {
-        this.point = point;
-        this.cellState = CellState.DEAD;
-    }
 
     public Cell(int x, int y) {
         this.point.x = x;
@@ -21,18 +17,10 @@ public class Cell {
         this.cellState = CellState.DEAD;
     }
 
-    public Cell(int x, int y, CellState cellState) {
+    public Cell(int x, int y,CellState cellState) {
         this.point.x = x;
         this.point.y = y;
-        this.cellState = CellState.DEAD;
-    }
-
-    public Point getPoint() {
-        return point;
-    }
-
-    public CellState getCellState() {
-        return cellState;
+        this.cellState = cellState;
     }
 
     public void setCellState(CellState cellState) {
