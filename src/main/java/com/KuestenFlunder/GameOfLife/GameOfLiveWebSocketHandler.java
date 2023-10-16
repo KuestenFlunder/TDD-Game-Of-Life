@@ -1,5 +1,6 @@
 package com.KuestenFlunder.GameOfLife;
 
+import com.KuestenFlunder.GameOfLife.Service.PlaygroundService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.TextMessage;
@@ -7,6 +8,9 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
+
+    @Autowired
+    private PlaygroundService playgroundService;
 
     private Playground playground;
     private Playground updatedPlayground;
@@ -19,10 +23,10 @@ public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         int rounds = Integer.parseInt(message.getPayload());
-        updatedPlayground = playground.computePlaygroundForNextRound();
+        updatedPlayground = playgroundService.nextRound(playground);
 
         for (int i = 0; i < rounds; i++) {
-            updatedPlayground = updatedPlayground.computePlaygroundForNextRound();
+            updatedPlayground = playgroundService.nextRound(updatedPlayground);
             session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(updatedPlayground)));
             Thread.sleep(500); // Sleep for half a second (or desired time) between updates
         }

@@ -1,4 +1,4 @@
-package com.KuestenFlunder.GameOfLife;
+package com.KuestenFlunder.GameOfLife.Handler;
 
 import org.junit.jupiter.api.Test;
 
