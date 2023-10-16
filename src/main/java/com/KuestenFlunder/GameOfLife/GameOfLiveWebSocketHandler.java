@@ -9,19 +9,21 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
 
     private Playground playground;
+    private Playground updatedPlayground;
 
     @Autowired
     public GameOfLiveWebSocketHandler(Playground playground) {
         this.playground = playground;
+        this.updatedPlayground = playground;
     }
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         int rounds = Integer.parseInt(message.getPayload());
+        updatedPlayground = playground.computePlaygroundForNextRound();
 
         for (int i = 0; i < rounds; i++) {
-            playground = playground.computePlaygroundForNextRound();
-            session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(playground)));
-            System.out.println("Send new Playground to Client");
+            updatedPlayground = updatedPlayground.computePlaygroundForNextRound();
+            session.sendMessage(new TextMessage(new ObjectMapper().writeValueAsString(updatedPlayground)));
             Thread.sleep(500); // Sleep for half a second (or desired time) between updates
         }
     }
