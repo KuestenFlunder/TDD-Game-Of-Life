@@ -1,6 +1,6 @@
 # Game of Life with Websockets
 
-Welcome to the `GameOfLife` project by `com.KuestenFlunder`. This is a modern implementation of John Conway's classic cellular automaton, with a twist - it utilizes WebSockets for delivering real-time game state updates.
+Welcome to the `GameOfLife` project. This is a modern implementation of John Conway's classic cellular automaton, with a twist - it utilizes WebSockets for delivering real-time game state updates.
 
 ## Features
 
