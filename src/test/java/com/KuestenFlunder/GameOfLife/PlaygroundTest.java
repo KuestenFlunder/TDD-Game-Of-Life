@@ -1,6 +1,9 @@
 package com.KuestenFlunder.GameOfLife;
 
 
+import com.KuestenFlunder.GameOfLife.Entity.Cell;
+import com.KuestenFlunder.GameOfLife.Entity.Playground;
+import com.KuestenFlunder.GameOfLife.Enum.CellState;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -10,8 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import static com.KuestenFlunder.GameOfLife.CellState.ALIVE;
-import static com.KuestenFlunder.GameOfLife.CellState.DEAD;
+import static com.KuestenFlunder.GameOfLife.Enum.CellState.ALIVE;
+import static com.KuestenFlunder.GameOfLife.Enum.CellState.DEAD;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlaygroundTest {

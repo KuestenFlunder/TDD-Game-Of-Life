@@ -1,20 +1,22 @@
 package com.KuestenFlunder.GameOfLife;
 
+import com.KuestenFlunder.GameOfLife.Enum.CellState;
+import com.KuestenFlunder.GameOfLife.Service.CellSateService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.KuestenFlunder.GameOfLife.CellState.*;
+import static com.KuestenFlunder.GameOfLife.Enum.CellState.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SparkOfLifeTest {
-    SparkOfLife sparkOfLife;
+class CellSateServiceTest {
+    CellSateService cellSateService;
 
     @BeforeEach
     public void setUp() {
-        sparkOfLife = new SparkOfLife();
+        cellSateService = new CellSateService();
     }
 
     private Map<CellState, Long> createNeighborMap(long aliveCount) {
@@ -26,43 +28,43 @@ class SparkOfLifeTest {
 
     @Test
     public void DEAD_cell_with_1_ALIVE_neighbors_stays_DEAD() {
-        CellState state = sparkOfLife.checkStateOfActualCell(DEAD, createNeighborMap(1));
+        CellState state = cellSateService.checkStateOfActualCell(DEAD, createNeighborMap(1));
         assertEquals(DEAD, state);
     }
 
     @Test
     public void DEAD_cell_with_0_ALIVE_neighbors_stays_DEAD() {
-        CellState state = sparkOfLife.checkStateOfActualCell(DEAD, createNeighborMap(0));
+        CellState state = cellSateService.checkStateOfActualCell(DEAD, createNeighborMap(0));
         assertEquals(DEAD, state);
     }
 
     @Test
     public void ALIVE_cell_with_1_ALIVE_neighbor_dies() {
-        CellState state = sparkOfLife.checkStateOfActualCell(ALIVE, createNeighborMap(1));
+        CellState state = cellSateService.checkStateOfActualCell(ALIVE, createNeighborMap(1));
         assertEquals(DEAD, state);
     }
 
     @Test
     public void DEAD_cell_with_3_ALIVE_neighbors_becomes_ALIVE() {
-        CellState state = sparkOfLife.checkStateOfActualCell(DEAD, createNeighborMap(3));
+        CellState state = cellSateService.checkStateOfActualCell(DEAD, createNeighborMap(3));
         assertEquals(ALIVE, state);
     }
 
     @Test
     public void ALIVE_cell_with_2_ALIVE_neighbors_stays_ALIVE() {
-        CellState state = sparkOfLife.checkStateOfActualCell(ALIVE, createNeighborMap(2));
+        CellState state = cellSateService.checkStateOfActualCell(ALIVE, createNeighborMap(2));
         assertEquals(ALIVE, state);
     }
 
     @Test
     public void ALIVE_cell_with_3_ALIVE_neighbors_stays_ALIVE() {
-        CellState state = sparkOfLife.checkStateOfActualCell(ALIVE, createNeighborMap(3));
+        CellState state = cellSateService.checkStateOfActualCell(ALIVE, createNeighborMap(3));
         assertEquals(ALIVE, state);
     }
 
     @Test
     public void ALIVE_cell_with_more_than_3_ALIVE_neighbors_becomes_dead() {
-        CellState state = sparkOfLife.checkStateOfActualCell(ALIVE, createNeighborMap(4));
+        CellState state = cellSateService.checkStateOfActualCell(ALIVE, createNeighborMap(4));
         assertEquals(DEAD, state);
     }
 }

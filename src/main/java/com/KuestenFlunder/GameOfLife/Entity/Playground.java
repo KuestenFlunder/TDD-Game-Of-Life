@@ -1,6 +1,8 @@
-package com.KuestenFlunder.GameOfLife;
+package com.KuestenFlunder.GameOfLife.Entity;
 
 
+import com.KuestenFlunder.GameOfLife.Enum.CellState;
+import com.KuestenFlunder.GameOfLife.Service.CellSateService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
@@ -16,7 +18,7 @@ public class Playground {
     private  int yLength;
     public List<Cell> cellField = new ArrayList<>();
     @JsonIgnore
-    SparkOfLife sparkOfLife = new SparkOfLife();
+    CellSateService cellSateService = new CellSateService();
 
     //expected Field orientation
     //P(0,2) P(1,2) P(2,2)
@@ -47,7 +49,7 @@ public class Playground {
         Cell actualCell = getCellByCoordinates(0, 0);
         while (actualCell != null) {
             CellState actualCellState = actualCell.getCellState();
-            CellState newState = sparkOfLife
+            CellState newState = cellSateService
                     .checkStateOfActualCell(actualCellState,
                             getNeighboursState(actualCell));
             nextRoundPlayground
@@ -109,7 +111,7 @@ public class Playground {
                                 String.format("There is no Cell with the coordinates Point(%d,%d)", x, y)));
     }
 
-    protected List<Cell> findNeighbours(Cell cell) {
+    public List<Cell> findNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
         int x = cell.getPoint().x;
         int y = cell.getPoint().y;
