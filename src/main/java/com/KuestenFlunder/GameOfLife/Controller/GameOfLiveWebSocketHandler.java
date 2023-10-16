@@ -1,23 +1,28 @@
-package com.KuestenFlunder.GameOfLife;
+package com.KuestenFlunder.GameOfLife.Controller;
 
+import com.KuestenFlunder.GameOfLife.Entity.Playground;
+import com.KuestenFlunder.GameOfLife.Service.Delayer;
 import com.KuestenFlunder.GameOfLife.Service.PlaygroundService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+@Component
 public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
 
-    @Autowired
     private PlaygroundService playgroundService;
-
+    private Delayer delayer;
     private Playground playground;
     private Playground updatedPlayground;
 
     @Autowired
-    public GameOfLiveWebSocketHandler(Playground playground) {
+    public GameOfLiveWebSocketHandler(Playground playground, PlaygroundService playgroundService, Delayer delayer) {
         this.playground = playground;
         this.updatedPlayground = playground;
+        this.playgroundService = playgroundService;
+        this.delayer = delayer;
     }
 
     @Override
@@ -30,7 +35,7 @@ public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
             String serializedPlayground = playgroundService.serialize(updatedPlayground);
 
             session.sendMessage(new TextMessage(serializedPlayground));
-            Thread.sleep(500); // Sleep for half a second (or desired time) between updates
+            delayer.delay(500);
         }
     }
 }

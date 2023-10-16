@@ -1,4 +1,4 @@
-package com.KuestenFlunder.GameOfLife;
+package com.KuestenFlunder.GameOfLife.Enum;
 
 public enum CellState {
 

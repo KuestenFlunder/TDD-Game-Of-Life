@@ -1,6 +1,6 @@
 package com.KuestenFlunder.GameOfLife.Service;
 
-import com.KuestenFlunder.GameOfLife.Playground;
+import com.KuestenFlunder.GameOfLife.Entity.Playground;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 

@@ -1,5 +1,6 @@
-package com.KuestenFlunder.GameOfLife;
+package com.KuestenFlunder.GameOfLife.Config;
 
+import com.KuestenFlunder.GameOfLife.Controller.GameOfLiveWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Configuration;

@@ -1,6 +1,8 @@
-package com.KuestenFlunder.GameOfLife;
+package com.KuestenFlunder.GameOfLife.Entity;
 
 
+
+import com.KuestenFlunder.GameOfLife.Enum.CellState;
 
 import java.awt.*;
 import java.util.Objects;

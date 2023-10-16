@@ -1,11 +1,10 @@
 package com.KuestenFlunder.GameOfLife.Service;
 
-import com.KuestenFlunder.GameOfLife.CellState;
-import com.KuestenFlunder.GameOfLife.Playground;
+import com.KuestenFlunder.GameOfLife.Entity.Playground;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static com.KuestenFlunder.GameOfLife.CellState.ALIVE;
+import static com.KuestenFlunder.GameOfLife.Enum.CellState.ALIVE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PlaygroundServiceTest {

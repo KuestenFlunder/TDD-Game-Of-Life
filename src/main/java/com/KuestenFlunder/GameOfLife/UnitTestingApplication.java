@@ -1,5 +1,7 @@
 package com.KuestenFlunder.GameOfLife;
 
+import com.KuestenFlunder.GameOfLife.Entity.Playground;
+import com.KuestenFlunder.GameOfLife.Enum.CellState;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -23,8 +25,5 @@ public class UnitTestingApplication {
 
 		return playground;
 	}
-	@Bean
-	public GameOfLiveWebSocketHandler gameOfLiveWebSocketHandler(Playground playground) {
-		return new GameOfLiveWebSocketHandler(playground);
-	}
+
 }
