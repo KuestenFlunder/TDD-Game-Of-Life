@@ -12,15 +12,13 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 @Component
 public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
 
-    private PlaygroundService playgroundService;
-    private Delayer delayer;
-    private Playground playground;
-    private Playground updatedPlayground;
+    private final PlaygroundService playgroundService;
+    private final Delayer delayer;
+    private final Playground initialPlayground;
 
     @Autowired
     public GameOfLiveWebSocketHandler(Playground playground, PlaygroundService playgroundService, Delayer delayer) {
-        this.playground = playground;
-        this.updatedPlayground = playground;
+        this.initialPlayground = playground;
         this.playgroundService = playgroundService;
         this.delayer = delayer;
     }
@@ -28,16 +26,17 @@ public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         int rounds = Integer.parseInt(message.getPayload());
+        Playground currentPlayground = initialPlayground;
 
-        //send back the initial playground to show the user the initial state
-        String initialSerializedPlayground = playgroundService.serialize(playground);
-        session.sendMessage(new TextMessage(initialSerializedPlayground));
+        // Send back the initial playground to show the user the initial state
+        String serializedPlayground = playgroundService.serialize(currentPlayground);
+        session.sendMessage(new TextMessage(serializedPlayground));
         delayer.delay(200);
 
-        //send back the updated playground for each round
+        // Send back the updated playground for each round
         for (int i = 0; i < rounds; i++) {
-            updatedPlayground = playgroundService.nextRound(updatedPlayground);
-            String serializedPlayground = playgroundService.serialize(updatedPlayground);
+            currentPlayground = playgroundService.nextRound(currentPlayground);
+            serializedPlayground = playgroundService.serialize(currentPlayground);
 
             session.sendMessage(new TextMessage(serializedPlayground));
             delayer.delay(500);
