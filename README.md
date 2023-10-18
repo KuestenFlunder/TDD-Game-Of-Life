@@ -7,7 +7,7 @@ Welcome to the `GameOfLife` project. This is a modern implementation of John Con
 - **Real-time Updates**: Using WebSockets, you can experience the Game of Life in real-time, with instantaneous state updates without any need for manual refreshes.
 - **Test-Driven Development (TDD)**: This project has been developed following the principles of TDD, ensuring robustness and reliability. Every piece of code has been thoroughly tested before implementation, ensuring that the game functions as expected under various conditions.
 
-## Coming Soon
+## SetUp with Docker Compose
 
 To run a `docker-compose` file, you need to have both Docker and Docker Compose installed on your system. Once you have those set up, you can use the `docker-compose` command to manage multi-container applications defined in a `docker-compose.yml` file.
 
