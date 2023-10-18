@@ -9,7 +9,85 @@ Welcome to the `GameOfLife` project. This is a modern implementation of John Con
 
 ## Coming Soon
 
-- **Dockerized Deployment**: Stay tuned for a Dockerized version of both frontend and backend components, making it easier than ever to deploy and run the Game of Life on any platform.
+To run a `docker-compose` file, you need to have both Docker and Docker Compose installed on your system. Once you have those set up, you can use the `docker-compose` command to manage multi-container applications defined in a `docker-compose.yml` file.
+
+***Once the service is running on your local machine you can play the sequence under localhost:5005***
+
+Here's a basic step-by-step guide on how to run a `docker-compose` file:
+
+1. **Navigate to the Directory**:
+   Ensure you're in the directory where your `docker-compose.yml` file is located.
+
+   ```bash
+   cd /path/to/directory
+   ```
+
+2. **Start Services**:
+   To start the services defined in `docker-compose.yml`, run:
+
+   ```bash
+   docker-compose up
+   ```
+
+   - If you want to start the services in detached mode (in the background), use:
+
+     ```bash
+     docker-compose up -d
+     ```
+  
+
+3. **View Logs**:
+   If you started the services in detached mode and want to view the logs:
+
+   ```bash
+   docker-compose logs
+   ```
+
+   To follow the logs:
+
+   ```bash
+   docker-compose logs -f
+   ```
+
+4. **Stop Services**:
+   To stop the services:
+
+   ```bash
+   docker-compose down
+   ```
+
+   - If you also want to remove the volumes defined in the `docker-compose.yml` file, use:
+
+     ```bash
+     docker-compose down -v
+     ```
+
+5. **List Services**:
+   To see a list of running services:
+
+   ```bash
+   docker-compose ps
+   ```
+
+6. **Rebuild Services**:
+   If you made changes and need to rebuild the Docker images:
+
+   ```bash
+   docker-compose build
+   ```
+
+   Then start the services again using `docker-compose up`.
+
+7. **Scaling Services**:
+   If you want to scale a particular service (assuming it's designed to scale):
+
+   ```bash
+   docker-compose up --scale service_name=number_of_instances
+   ```
+
+   Replace `service_name` with the name of the service in your `docker-compose.yml` and `number_of_instances` with the number of instances you want to run.
+
+These are basic commands to get started with `docker-compose`. There are many other commands and options available, so it's beneficial to refer to the official documentation or run `docker-compose --help` for more details.
 
 ## Project Structure
 
