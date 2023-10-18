@@ -1,13 +1,15 @@
-package com.KuestenFlunder.GameOfLife;
+package com.KuestenFlunder.GameOfLife.Service;
 
 
+
+import com.KuestenFlunder.GameOfLife.Enum.CellState;
 
 import java.util.Map;
 
-import static com.KuestenFlunder.GameOfLife.CellState.ALIVE;
+import static com.KuestenFlunder.GameOfLife.Enum.CellState.ALIVE;
 
 
-public class SparkOfLife {
+public class CellSateService {
 
 
     private static final int TOP_CONDITIONS = 3;
