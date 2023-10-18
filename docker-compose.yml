@@ -1,0 +1,29 @@
+version : '3.8'
+
+services:
+  backend:
+    build:
+      context: https://github.com/KuestenFlunder/TDD-Game-Of-Life.git
+      dockerfile: Dockerfile
+    image: game-of-life/backend:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - game-of-life-network
+
+  frontend:
+    build:
+      context: https://github.com/KuestenFlunder/svelte-gameOfLife.git
+      dockerfile: Dockerfile
+    image: game-of-life/frontend:latest
+    ports:
+      - "5005:5000"
+    networks:
+      - game-of-life-network
+
+networks:
+  game-of-life-network:
+    driver: bridge
+
+
+
