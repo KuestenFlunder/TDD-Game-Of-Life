@@ -28,8 +28,13 @@ public class GameOfLiveWebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         int rounds = Integer.parseInt(message.getPayload());
-        updatedPlayground = playgroundService.nextRound(playground);
 
+        //send back the initial playground to show the user the initial state
+        String initialSerializedPlayground = playgroundService.serialize(playground);
+        session.sendMessage(new TextMessage(initialSerializedPlayground));
+        delayer.delay(200);
+
+        //send back the updated playground for each round
         for (int i = 0; i < rounds; i++) {
             updatedPlayground = playgroundService.nextRound(updatedPlayground);
             String serializedPlayground = playgroundService.serialize(updatedPlayground);

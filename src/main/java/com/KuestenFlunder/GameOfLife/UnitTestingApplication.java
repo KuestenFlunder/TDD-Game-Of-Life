@@ -17,11 +17,15 @@ public class UnitTestingApplication {
 	public Playground playground() {
 		Playground playground = new Playground(20, 20);
 		//add blicker pattern to playground
-		playground.getCellByCoordinates(7, 4).setCellState(CellState.ALIVE);
-		playground.getCellByCoordinates(7, 5).setCellState(CellState.ALIVE);
-		playground.getCellByCoordinates(8,6).setCellState(CellState.ALIVE);
-		playground.getCellByCoordinates(6,5).setCellState(CellState.ALIVE);
-		playground.getCellByCoordinates(6,6).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(10,7).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(9,7).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(8,7).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(8,8).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(8,9).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(9,9).setCellState(CellState.ALIVE);
+		playground.getCellByCoordinates(10,9).setCellState(CellState.ALIVE);
+
+		playground.cellField.stream().filter(cell -> cell.getCellState().equals(CellState.ALIVE)).forEach(System.out::println);
 
 		return playground;
 	}
